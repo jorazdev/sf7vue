@@ -1,0 +1,33 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.0",
+        "core-js": "^3.38.0",
+        "regenerator-runtime": "^0.13.9",
+        "ts-loader": "^9.5.2",
+        "vue-loader": "^17.4.2"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress",
+        "vite": "vite",
+        "vite:build": "vite build"
+    },
+    "dependencies": {
+        "@vitejs/plugin-vue": "^5.2.1",
+        "@vue/tsconfig": "^0.7.0",
+        "typescript": "~5.7.2",
+        "vite": "^6.2.0",
+        "vue-tsc": "^2.2.4",
+        "axios": "^1.8.4",
+        "material-symbols": "^0.29.2",
+        "pinia": "^3.0.1",
+        "vite-plugin-symfony": "^8.0.2",
+        "vue": "^3.5.13",
+        "vue-router": "^4.5.0"
+    }
+}
