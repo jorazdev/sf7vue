@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./assets/*"],
+        "@components/*": ["./assets/components/*"],
+        "@lib/*": ["./assets/lib/*"],
+        "@composables/*": ["./assets/composables/*"],
+        "@images/*": ["./assets/images/*"],
+        "@app/*": ["./assets/vue/*"],
+      }
+    }
+}
