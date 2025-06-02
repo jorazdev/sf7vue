@@ -8,7 +8,7 @@ import 'element-plus/dist/index.css'
 import "material-symbols"; // https://www.npmjs.com/package/material-symbols
 // https://symfony-vite.pentatrion.com/guide/getting-started.html
 import "../styles/app.css"
-
+import './permission'
 const app = createApp(App);
 
 app.use(router)

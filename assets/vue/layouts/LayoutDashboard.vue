@@ -1,8 +1,7 @@
 <template>
-    <ContentApp/>
+    <DashbordContainer/>
 </template>
 
 <script setup lang="ts">
-import ContentApp from './ContentApp.vue';
-
+import DashbordContainer from '@/vue/components/DashbordContainer.vue'
 </script>

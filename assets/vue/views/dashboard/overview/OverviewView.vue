@@ -1,7 +1,7 @@
 <template>
-<div class="container mx-auto flex flex-col items-center justify-center">
+<div>
     <h1>
-        Overview
+        Overview Dashboard
     </h1>
 </div>
 </template>

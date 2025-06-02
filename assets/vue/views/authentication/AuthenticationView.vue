@@ -33,7 +33,8 @@
                         label="Password" 
                         v-model="signinForm.password" 
                         :errors="signinErrors"/>
-                    <Button class="w-full" @click="onSignin">Sign in</Button>
+                    <Button class="w-full cursor-pointer" 
+                        @click="onSignin">Sign in</Button>
                     <div class="w-full h-auto bg-green-200 break-words p-2" 
                         v-if="token">{{ token }}</div>
                 </div>

@@ -6,6 +6,7 @@ export type TUseUserReturn = {
   token: Ref<string | undefined>
   signinErrors: Ref<Record<string, string[]>>
   onSignin: () => Promise<void>
+  onLogout: () => void
 }
 
 export type TUser = {

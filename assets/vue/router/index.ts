@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        name: 'Authentication',
+        name: 'signin',
         component: () => import('@app/views/authentication/AuthenticationView.vue')
     },
     {
@@ -19,26 +19,41 @@ const routes: RouteRecordRaw[] = [
             {
                 path: '/dashboard/home',
                 name: 'home',
+                meta: {
+                    requiresAuth: true
+                },
                 component: () => import('@app/views/dashboard/home/HomeView.vue')
             },
             {
                 path: '/dashboard/overview',
                 name: 'overview',
+                meta: {
+                    requiresAuth: true
+                },
                 component: () => import('@app/views/dashboard/overview/OverviewView.vue')
             },
             {
                 path: '/dashboard/customers',
                 name: 'customers',
+                meta: {
+                    requiresAuth: true
+                },
                 component: () => import('@app/views/dashboard/customers/CustomersView.vue')
             },
             {
                 path: '/dashboard/products',
-                name: 'Products',
+                name: 'products',
+                meta: {
+                    requiresAuth: true
+                },
                 component: () => import('@app/views/dashboard/products/ProductsView.vue')
             },
             {
                 path: '/dashboard/settings',
-                name: 'Settings',
+                name: 'settings',
+                meta: {
+                    requiresAuth: true
+                },
                 component: () => import('@app/views/dashboard/settings/SettingsView.vue')
             },
         ]
