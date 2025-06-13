@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { TDashboard } from "@/vue/types/dashboard.type"
 import { useRouter } from "vue-router"
 export default function useDashboard() {
@@ -25,11 +25,15 @@ export default function useDashboard() {
             label: 'Settings'
         }
     ])
-
     const dashboard = ref<TDashboard>(dashboards.value[0])
+
+    onMounted(() => {
+        dashboard.value = dashboards.value.find(dash => dash.name == localStorage.getItem('route'))
+    })
 
     const onDashboard = (dash: TDashboard) => {
         dashboard.value = dash
+        localStorage.setItem('route', dash.name)
         router.push(dash.name)
     }
 

@@ -35,8 +35,6 @@
                         :errors="signinErrors"/>
                     <Button class="w-full cursor-pointer" 
                         @click="onSignin">Sign in</Button>
-                    <div class="w-full h-auto bg-green-200 break-words p-2" 
-                        v-if="token">{{ token }}</div>
                 </div>
             </div>
         </div>
@@ -51,5 +49,5 @@ import { Button } from '@components/ui/button'
 import { Input } from '@/components/ui/input'
 import useUser from '@/vue/composables/user'
 
-const {token, signinForm, signinErrors, onSignin } = useUser()
+const {signinForm, signinErrors, onSignin } = useUser()
 </script>

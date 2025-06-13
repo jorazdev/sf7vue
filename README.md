@@ -26,35 +26,37 @@
 
 ## Installation
 
-Install dependencies Symfony
+Install dependencies Symfony 7 & VueJS 3
 
 ```bash
-$ composer install
-```
-
-Install dependencies VueJS 3
-
-```bash
-$ npm install
+./install.sh
 ```
 
 ## Running the app
 
 ```bash
-# running Symfony project
-symfony serve
+./run.sh
+```
 
-# running VueJS 3 project
-npm run vite
+## Clean the app
+
+```bash
+./clean.sh
+```
 
 # lunch application on local
+
 http://localhost:8000
 
-
 ## Support
+
 mail: jorazdev@gmail.com
-tel: +261329774062
+tel: +261 32 97 740 62
 
 # Site web portfolio
+
 https://jorazdev.com
+
+```
+
 ```

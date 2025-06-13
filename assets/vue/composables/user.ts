@@ -2,10 +2,12 @@ import { TSigninForm, TUseUserReturn } from "../types/user.type"
 import useAxios from "./axios"
 import { reactive, ref } from "vue"
 import useUserErrors from "./userErrors"
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 
 export default function useUser(): TUseUserReturn{
     const router = useRouter()
+    const route = useRoute()
+
     const { post } = useAxios()
     const {signinErrors, onValidationSigninSchema} = useUserErrors()
 
@@ -25,12 +27,14 @@ export default function useUser(): TUseUserReturn{
         if(response?.data.token){
             localStorage.setItem('token', response?.data.token)
             token.value = response?.data.token
-            router.push('/dashboard')
+            const lastRoute = localStorage.getItem('lastRoute') || '/dashboard'
+            window.location.href = lastRoute;
         }
     }
 
     const onLogout = () => {
         localStorage.removeItem('token')
+        localStorage.setItem('lastRoute', route.path)
         token.value = ''
         router.push('/')
     }
