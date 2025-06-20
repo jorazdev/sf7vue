@@ -7,8 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BaseManager
 {
@@ -28,22 +29,33 @@ abstract class BaseManager
 
     protected NormalizerInterface $normalizer;
 
+    protected SerializerInterface $serializer;
+
+    protected ValidatorInterface $validator;
     public function __construct(
         EntityManagerInterface $em,
         RequestStack $request,
         Security $security,
-        NormalizerInterface $normalizer
+        NormalizerInterface $normalizer,
+        SerializerInterface $serializer,
+        ValidatorInterface $validator
     ) {
         $this->em = $em;
-        $this->request = $request->getCurrentRequest();
-        $this->data = $this->request != null ? json_decode($this->request->getContent()) : null;
+        $this->request = $request->getCurrentRequest() ?? throw new \LogicException('No current request available');
+        $this->data = $this->getData();
         $this->dataArray = $this->request != null ? json_decode($this->request->getContent(), true) : null;
         $this->formData = $this->request->request->all();
         $this->files = $this->request->files->all();
         $this->security = $security;
         $this->normalizer = $normalizer;
+        $this->serializer = $serializer;
+        $this->validator = $validator;
     }
 
+    private function getData()
+    {
+        return $this->request != null ? json_decode($this->request->getContent()) : null;
+    }
     /**
      * Save the entity
      *
@@ -139,5 +151,39 @@ abstract class BaseManager
     public function normalize($object, $context)
     {
         return $this->normalizer->normalize($object, null, $context);
+    }
+
+    private function deserialize(string $class)
+    {
+        try {
+            return $this->serializer->deserialize(
+                $this->request->getContent(),
+                $class,
+                'json'
+            );
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Données invalides'], 400);
+        }
+    }
+
+    public function validateForm(string $class)
+    {
+        $form = $this->deserialize($class);
+        $errors = $this->validator->validate($form);
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
+            }
+            return [
+                'isError' => true,
+                'value' => $errorMessages
+            ];
+        } else {
+            return [
+                'isError' => false,
+                'value' => $form
+            ];
+        }
     }
 }

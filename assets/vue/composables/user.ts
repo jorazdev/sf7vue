@@ -1,4 +1,4 @@
-import { TSigninForm, TUseUserReturn } from "../types/user.type"
+import { TSigninForm, TSignupForm, TUseUserReturn } from "@app/types/user.type"
 import useAxios from "./axios"
 import { reactive, ref } from "vue"
 import useUserErrors from "./userErrors"
@@ -9,14 +9,19 @@ export default function useUser(): TUseUserReturn{
     const route = useRoute()
 
     const { post } = useAxios()
-    const {signinErrors, onValidationSigninSchema} = useUserErrors()
+    const {signinErrors, signupErrors, onValidationSigninSchema, onValidationSignupSchema } = useUserErrors()
 
     const token = ref<string>()
     const signinForm = reactive<TSigninForm>({
         email: '',
         password: ''
     })
-
+    const signupForm = reactive<TSignupForm>({
+        lastName: 'RAKOTONDRASOA',
+        firstName: 'Onjamalala',
+        email: 'malala@gmail.com',
+        password: '123'
+    })
     const onSignin = async () => {
        if (!onValidationSigninSchema(signinForm)) {
             return
@@ -31,19 +36,33 @@ export default function useUser(): TUseUserReturn{
             window.location.href = lastRoute;
         }
     }
-
+    const onSignup = async () => {
+        if (!onValidationSignupSchema(signupForm)) {
+            return
+        }
+        const response = await post('/api/user/signup', {
+            ...signupForm
+          })
+        if(!response.data.success){
+            for (const property in response.data.data) {
+                signupErrors.value[property] = [response.data.data[property]]
+            }
+        }
+    }
     const onLogout = () => {
         localStorage.removeItem('token')
         localStorage.setItem('lastRoute', route.path)
         token.value = ''
         router.push('/')
     }
-
     return {
         signinForm,
+        signupForm,
         token,
         signinErrors,
+        signupErrors,
         onSignin,
+        onSignup,
         onLogout
     }
 }

@@ -11,9 +11,9 @@ final class UserController extends AbstractController
 {
     public function __construct(private UserManager $userManager) {}
 
-    #[Route('/api/user', name: 'app_user', methods: ['POST'])]
-    public function index(): Response
+    #[Route('/api/user/signup', name: 'user_signup', methods: ['POST'])]
+    public function signup(): Response
     {
-        return $this->userManager->userInfo();
+        return $this->userManager->signup();
     }
 }
