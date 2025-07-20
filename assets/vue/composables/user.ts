@@ -32,8 +32,9 @@ export default function useUser(): TUseUserReturn{
         if(response?.data.token){
             localStorage.setItem('token', response?.data.token)
             token.value = response?.data.token
-            const lastRoute = localStorage.getItem('lastRoute') || '/dashboard'
+            const lastRoute = '/apps' // localStorage.getItem('lastRoute') 
             window.location.href = lastRoute;
+            
         }
     }
     const onSignup = async () => {

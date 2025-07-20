@@ -91,7 +91,7 @@ abstract class BaseManager
      */
     public function success($data = null, ?string $key = null, ?string $headers = null)
     {
-        $response = new JsonResponse(['code' => 200, 'success' => true, 'data' => $data], 200);
+        $response = new JsonResponse(['code' => 200, 'success' => true, 'result' => $data], 200);
         if ($headers != null) {
             $response->headers->set($key, $headers);
         }

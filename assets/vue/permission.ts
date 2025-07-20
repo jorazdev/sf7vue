@@ -4,7 +4,7 @@ const whiteList = ['/login']
 
 // Fonction utilitaire pour gérer la redirection vers la dernière route
 const redirectToLastRoute = (next) => {
-    const lastRoute = localStorage.getItem('lastRoute') || '/dashboard';
+    const lastRoute = localStorage.getItem('lastRoute') || '/apps'
     next({ path: lastRoute });
 }
 
@@ -27,8 +27,8 @@ router.beforeEach(async(to, from, next) => {
             }
 
             // Mettre à jour la dernière route visitée
-            localStorage.setItem('lastRoute', to.path);
-
+            //localStorage.setItem('lastRoute', to.path);
+            //console.log(to.path)
             axios.interceptors.response.use(undefined, (err) => {
                 return new Promise(() => {
                     if (err.response?.status === 401) {

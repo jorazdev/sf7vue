@@ -31,5 +31,7 @@ import useDashboard from "@/vue/composables/dashboard"
 import ContentApp from "../layouts/ContentApp.vue"
 
 const { onLogout } = useUser()
-const { dashboards, dashboard, onDashboard } = useDashboard()   
+const { dashboards, dashboard, onDashboard } = useDashboard()  
+
+
 </script>
